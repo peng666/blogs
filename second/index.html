@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+		ul{
+			width: 300px;
+			height: 80px;
+			list-style: none;
+		}
+		li{
+			float: left;
+			background: blue;
+			margin-left: 10px;
+			cursor: pointer;
+			width: 80px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			color: #fff;
+
+		}
+		div{
+			background: green;
+			cursor: pointer;
+			height: 100px;
+			color: #fff;
+			display: none;
+		}
+	</style>
+	<title>Document</title>
+	<script type="text/javascript">
+		window.onload=function(){
+			var ul1=document.getElementById('ul1');
+			var oDiv=ul1.getElementsByTagName('div');
+			var oLi=ul1.getElementsByTagName('li');
+			var i=0;
+			
+			for(i=0;i<oLi.length;i++){
+				oLi[i].index=i;
+				oLi[i].onmouseover=function(){
+					oDiv[this.index].style.display='block'
+				}
+
+				oLi[i].onmouseout=function(){
+					oDiv[this.index].style.display='none'
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li>
+			首页
+			<div>
+				shouye
+			</div>
+		</li>
+		<li>
+			会员
+			<div>
+				huiyuan
+			</div>
+		</li>
+		<li>
+			关于
+			<div>
+				guanyu
+			</div>
+		</li>
+	</ul>
+</body>
+</html>
