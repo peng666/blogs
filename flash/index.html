@@ -214,8 +214,8 @@ function startMove(obj, json, fn)
 
 			oBtn[i].index=i;
 			oBtn[i].onmouseover=function(){
+		  	  	clearInterval(timer);
 				show(this.index);
-		  	  	clearInterval(timer) 
 			}
 		}
 
