@@ -201,7 +201,8 @@ function startMove(obj, json, fn)
 
 		pic.style.width=oLi.length*oLi[0].offsetWidth+'px';
 
-		function autoPlay(){							//定时播放
+		function autoPlay(){	
+			clearInterval(timer);						//定时播放
 			timer=setInterval(function(){
 				index++;
 	     		index>=oLi.length&&(index=0);
