@@ -150,7 +150,8 @@ window.onload=function(){
 
 	
 
-		function autoPlay(){							//定时播放
+		function autoPlay(){	
+			clearInterval(timer);						//定时播放
 			timer=setInterval(function(){
 				index++;
 	     		index>=oLi.length&&(index=0);
