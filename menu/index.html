@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>自定义右键菜单-张朋-</title>
+<style type="text/css">
+#ul1{
+	list-style: none;
+	width: 120px;
+	height: 150px;
+	margin: 0;
+	display: none;
+	padding: 0;
+	border: 1px solid #666;
+	position: absolute;
+}
+li{
+	line-height: 30px;
+	width: 120px;
+	height: 30px;
+	background: #ddd;
+}
+a{
+	margin-left: 15px;
+	text-decoration: none;
+	color: black;
+}
+li:hover{
+	background: #666
+}
+li:hover a{
+	color: #fff;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oUl=document.getElementById('ul1');
+
+	document.oncontextmenu=function(ev){
+		
+		var ev=ev||event;
+
+		oUl.style.display='block';
+		oUl.style.left=ev.clientX+'px';
+		oUl.style.top=ev.clientY+'px';
+		return false;
+	}
+	document.onclick=function(){
+		oUl.style.display='none';
+	}
+}
+</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li><a href="#qq">刷新</a></li>
+		<li><a href="#qq">删除</a></li>
+		<li><a href="#qq">新建</a></li>
+		<li><a href="#qq">个性化</a></li>
+		<li><a href="#qq">分辨率</a></li>
+	</ul>
+
+</body>
+</html>

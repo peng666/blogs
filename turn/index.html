@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>无缝切换-张朋-</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+#ul1{
+	list-style: none;
+	position: absolute;
+	height: 164px;
+	top: 0;
+	left: 0;
+}
+#ul1 li{
+	float: left;
+}
+#box{
+	width: 1000px;
+	height: 164px;
+	border: 1px solid #666;
+	position: relative;
+	margin: 50px auto;
+	overflow: hidden;
+}
+#left{
+	left: 0
+}
+#right,#left{
+	background: #888;
+	width: 20px;
+	height: 40px;
+	color: #fff;
+	position:absolute;
+	top: 60px;
+	right: 0;
+	z-index: 2;
+	font-size: 25px;
+	font-family: simsun;
+	text-decoration: none;
+	text-align: center;
+	line-height: 40px;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	// JavaScript Document
+
+function startMove(obj,json,endFn){
+	
+		clearInterval(obj.timer);
+		
+		obj.timer = setInterval(function(){
+			
+			var bBtn = true;
+			
+			for(var attr in json){
+				
+				var iCur = 0;
+			
+				if(attr == 'opacity'){
+					if(Math.round(parseFloat(getStyle(obj,attr))*100)==0){
+					iCur = Math.round(parseFloat(getStyle(obj,attr))*100);
+					
+					}
+					else{
+						iCur = Math.round(parseFloat(getStyle(obj,attr))*100) || 100;
+					}	
+				}
+				else{
+					iCur = parseInt(getStyle(obj,attr)) || 0;
+				}
+				
+				var iSpeed = (json[attr] - iCur)/8;
+			iSpeed = iSpeed >0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+				if(iCur!=json[attr]){
+					bBtn = false;
+				}
+				
+				if(attr == 'opacity'){
+					obj.style.filter = 'alpha(opacity=' +(iCur + iSpeed)+ ')';
+					obj.style.opacity = (iCur + iSpeed)/100;
+					
+				}
+				else{
+					obj.style[attr] = iCur + iSpeed + 'px';
+				}
+				
+				
+			}
+			
+			if(bBtn){
+				clearInterval(obj.timer);
+				
+				if(endFn){
+					endFn.call(obj);
+				}
+			}
+			
+		},30);
+	
+}
+	
+	
+function getStyle(obj,attr){
+	if(obj.currentStyle){
+		return obj.currentStyle[attr];
+	}
+	else{
+		return getComputedStyle(obj,false)[attr];
+	}
+}
+	var oUl=document.getElementById('ul1');
+	var oLi=oUl.getElementsByTagName('li');
+	var oLeft=document.getElementById('left');
+	var oRight=document.getElementById('right');
+	var iNum=7;
+
+	function getWidth(){
+		oUl.style.width=oLi[0].offsetWidth*oLi.length+'px';
+	}
+	getWidth();
+	setInterval(
+	function turn1(){
+		
+		speed=-iNum*oLi[0].offsetWidth;
+
+		for(var i=0 ;i<iNum;i++){
+			var aLi=oLi[i].cloneNode(true);
+			oUl.appendChild(aLi);
+			getWidth();
+		}
+		startMove(oUl,{left:speed},function(){
+
+			for(var i=0;i<iNum;i++){
+				oUl.removeChild(oLi[0]);
+				oUl.style.left = 0;
+			}
+		})
+	},5000)
+
+
+
+}
+</script>
+</head>
+<body>
+<div id="box">
+	<a id="left" href="#qq"><</a>
+	<a id="right" href="#qq">></a>
+	<ul id="ul1">
+		<li><img src="1.jpg"></li>
+		<li><img src="2.jpg"></li>
+		<li><img src="3.jpg"></li>
+		<li><img src="4.jpg"></li>
+		<li><img src="5.jpg"></li>
+		<li><img src="6.jpg"></li>
+		<li><img src="7.jpg"></li>
+		<li><img src="8.jpg"></li>
+	</ul>
+</div>
+</body>
+</html>

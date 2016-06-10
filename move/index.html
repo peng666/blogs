@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动-张朋-</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+	border:none;
+}
+#ul1{
+	list-style: none;
+	height: 164px;
+	position: absolute;
+	left: 0;
+}
+#box{
+	width: 1008px;
+	height: 166px;
+	border: 1px solid #333;
+	margin: 20px auto;
+	position: relative;
+	overflow: hidden;
+}
+img{
+	border: 1px solid #ddd;
+}
+li{
+	float: left;
+	width: 250px;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oUl=document.getElementById('ul1');
+	var oLi=oUl.getElementsByTagName('li');
+	var timer=null;
+
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=oLi.length*oLi[0].offsetWidth+'px';
+
+	function fn(){
+		oUl.style.left=oUl.offsetLeft-1+'px';
+		if(oUl.offsetLeft<-oUl.offsetWidth/2){
+			oUl.style.left=0;
+		}else{
+			oUl.style.left=oUl.offsetLeft-1+'px';
+		}
+	}
+
+	timer=setInterval(fn,30)
+
+	oUl.onmouseover=function(){
+
+		clearInterval(timer);
+
+	}
+	oUl.onmouseout=function(){
+
+		timer=setInterval(fn,30)
+
+	}
+}
+</script>
+
+</head>
+<body>
+<div id="box">
+	<ul id="ul1">
+		<li><img src="1.jpg"></li>
+		<li><img src="2.jpg"></li>
+		<li><img src="3.jpg"></li>
+		<li><img src="4.jpg"></li>
+	</ul>
+</div>
+</body>
+</html>

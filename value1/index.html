@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文本框的使用-张朋-</title>
+</head>
+<style type="text/css">
+#text1{
+	margin: 10px auto;
+	display: block;
+	border: 1px solid black;
+}
+#btn1{
+	display: block;
+	margin: 0 auto;
+}
+</style>
+<body>
+	<textarea id="text1" rows="20" cols="50"></textarea><br>
+	<input id="btn1" type="button" value="弹出输入的内容">
+<script type="text/javascript">
+window.onload=function(){
+	var oBtn=document.getElementById('btn1');
+	var oText=document.getElementById('text1');
+
+	oBtn.onclick=function(){
+		alert(oText.value)
+	}
+}
+</script>
+</body>
+</html>
