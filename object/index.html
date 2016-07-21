@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>拖拽--装逼版</title>
+<style>
+div{
+	margin: 0;
+	padding: 0;
+}
+#div1{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: blue;
+	position: absolute;
+}
+#div2{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: red;
+	position: absolute;
+}
+</style>
+<script>
+window.onload=function(){
+	new Drag('div1');
+	new DragLimit('div2');
+}
+function Drag(id){
+	this.oDiv=null;
+	var _this=this;
+	this.disX=0;
+	this.disY=0;
+	
+	this.oDiv=document.getElementById(id);
+	this.oDiv.onmousedown=function(ev){
+		_this.fnDown(ev);
+	};
+}
+
+Drag.prototype.fnDown=function(ev){
+
+
+	var oEvent=ev||event;
+	this.disX=oEvent.clientX-this.oDiv.offsetLeft;
+	this.disY=oEvent.clientY-this.oDiv.offsetTop;
+
+
+	var _this=this;
+
+	document.onmousemove=function(ev){
+		_this.fnMove(ev);
+	};
+	document.onmouseup=function(){
+		_this.fnUp();
+	};
+	return false;
+}
+
+Drag.prototype.fnMove=function(ev){
+	var oEvent=ev||event;
+
+	this.oDiv.style.left=oEvent.clientX-this.disX+'px';
+	this.oDiv.style.top=oEvent.clientY-this.disY+'px';
+
+}
+Drag.prototype.fnUp=function(){
+	document.onmousemove=null;
+	document.onmouseup=null;
+}
+
+function DragLimit(id){
+	Drag.call(this,id)
+}
+
+for(var i in Drag.prototype){
+	DragLimit.prototype[i]=Drag.prototype[i];
+}
+
+DragLimit.prototype.fnMove=function(ev){
+
+	var oEvent=ev||event;
+
+	var l=oEvent.clientX-this.disX;
+	var t=oEvent.clientY-this.disY;
+
+	if(l<0){
+		l=0;
+	}else if(l>document.documentElement.clientWidth-this.oDiv.offsetWidth){
+		l=document.documentElement.clientWidth-this.oDiv.offsetWidth
+	}
+
+	if(t<0){
+		t=0;
+	}else if(t>document.documentElement.clientHeight-this.oDiv.offsetHeight){
+		t=document.documentElement.clientHeight-this.oDiv.offsetHeight
+	}
+
+	this.oDiv.style.left=l+'px';
+	this.oDiv.style.top=t+'px';
+}
+
+</script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>
