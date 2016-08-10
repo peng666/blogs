@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+a{
+	margin: 5px;
+}
+</style>
+<title>分页</title>	
+<script type="text/javascript">
+window.onload=function(){
+	page(
+		{id:'div1',
+		nowNum:8,
+		allNum:10,
+		callback:function(now,all){
+			alert('当前页：'+now+','+'总共'+all+'页')
+		}
+		}
+	)
+}
+
+function page(json){
+	if(!json.id){
+		return false
+	}
+	var obj=document.getElementById(json.id);
+	var nowNum=json.nowNum||1;
+	var allNum=json.allNum||5;
+	var callback=json.callback||function(){};
+
+	if(nowNum >3 && allNum >5){
+	
+		var oA=document.createElement('a');
+		oA.href="#"+1;
+		oA.innerHTML="首页";
+		obj.appendChild(oA)
+	}
+	if(nowNum>1){
+		var oA=document.createElement('a');
+		oA.href="#"+(nowNum-1);
+		oA.innerHTML="上一页";
+		obj.appendChild(oA)
+	}
+
+
+
+	if(allNum<=5){
+		for(var i=0;i<allNum;i++){
+			var oA=document.createElement('a');
+
+			oA.href='#'+(i+1);
+
+			if(nowNum==i){
+				oA.innerHTML=(i+1);
+			}else{
+				oA.innerHTML='['+ (i+1) +']';
+			}
+			obj.appendChild(oA);
+
+		}
+	}else{
+
+		for(var i=1;i<=5;i++){
+			var oA=document.createElement('a');
+
+			if(nowNum==1||nowNum==2){
+				oA.href='#'+i;
+				oA.innerHTML='['+i+']';
+
+				if(nowNum==i){
+					oA.innerHTML=i
+				}
+			}else if((allNum - nowNum) == 0||(allNum - nowNum == 1)){
+		
+				oA.href='#'+(allNum-5+i);
+				if(allNum - nowNum==0 && i==5){
+					oA.innerHTML=(allNum-5+i);
+				}else if(allNum - nowNum==1 && i==4){
+					oA.innerHTML=(allNum-5+i);
+				}else{
+					oA.innerHTML='['+(allNum-5+i)+']';
+				}
+
+		
+			}else{
+				oA.href = '#' + (nowNum - 3 + i);
+
+				if(i==3){
+					oA.innerHTML=(nowNum-3+i);
+				}else{
+					oA.innerHTML='['+(nowNum-3+i)+']';
+				}
+
+			}
+			obj.appendChild(oA);
+
+		}
+	}
+
+	if((allNum - nowNum)>0){
+		var oA=document.createElement('a');
+		oA.href='#'+(nowNum+1);
+		oA.innerHTML = '下一页'	
+		obj.appendChild(oA);
+	}
+	if((allNum - nowNum)>2){
+		var oA=document.createElement('a');
+		oA.href='#'+allNum;
+		oA.innerHTML = '尾页'	
+		obj.appendChild(oA);
+	}
+	callback(nowNum,allNum);
+	var aA=obj.getElementsByTagName('a');
+		for(var i=0;i<aA.length;i++){
+
+		aA[i].onclick=function(){
+
+			var nowNum = parseInt(this.getAttribute('href').substring(1));
+			
+			obj.innerHTML='';
+
+			page(
+				{
+					id:	json.id,
+					nowNum:nowNum,
+					allNum:allNum
+				}
+			)
+
+		}
+		
+	}
+}
+
+</script>
+</head>
+<body>
+<div id="div1">
+	<!-- <a href="#1">1</a>
+	<a href="#1">2</a>
+	<a href="#1">3</a>
+	<a href="#1">4</a>
+	<a href="#1">5</a> -->
+</div>
+</body>
+</html>
