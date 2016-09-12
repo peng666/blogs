@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<style type="text/css">
+*{margin: 0;padding: 0}
+img{float: left;}
+#box{width: 1340px;height: 900px; margin: 0 auto;position: relative;overflow: hidden;}
+#box img{position: absolute;left: 0;display: block;}
+#box1{width: 1340px;height: 900px;margin: 0 auto;overflow: hidden;}
+</style>
+<script type="text/javascript" src="move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	window.onclick = function(){
+		startMove(oBox,{left:1340});
+		setTimeout(function(){
+			window.location = 'mine.html';
+		},1500)
+	}
+}
+</script>
+</head>
+<body>
+<div id="box1">
+	<div id="box">
+		<img src="11.jpg">
+	</div>
+</div>
+</body>
+</html>
