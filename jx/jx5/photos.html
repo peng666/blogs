@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+*{margin: 0;padding: 0;}
+body{background: #ecebeb;}
+li{list-style: none;}
+#ul1{width: 1000px;height: 50px;border: 1px solid #ddd;margin: 0 auto;overflow: hidden;}
+#ul1 li{height:50px;line-height: 50px;text-align: center;font-size: 20px;float: left;width:140px;cursor: pointer;}	
+#ul2{width: 1000px;height: 500px;border: 1px solid #ddd;margin: 0 auto;position: relative;}
+#ul2 li{width: 1000px;height: 500px;background: #ddd;position: absolute;display: none}
+.active{background: #a14938;color: #fff;}
+img{width: 1000px;}
+</style>
+<title></title>
+<script type="text/javascript">
+window.onload=function(){
+	new aTab();
+}
+function aTab(){
+	var oUl1 = null;
+	var oUl2 = null;
+	var aLi1 = null;
+	var aLi2 = null;
+	var _this = this;
+
+	this.oUl1 = document.getElementById('ul1');
+	this.aLi1 = this.oUl1.getElementsByTagName('li');
+	this.oUl2 = document.getElementById('ul2');
+	this.aLi2 = this.oUl2.getElementsByTagName('li');
+
+	for(var i=0;i<this.aLi1.length;i++){
+		this.aLi1[i].index = i;
+		this.aLi1[i].onclick=function(){
+			_this.change(this.index)
+		}
+	}
+}
+aTab.prototype.change = function(btn){
+	
+
+	for(var i=0;i<this.aLi2.length;i++){
+		
+		for(var i=0;i<this.aLi2.length;i++){
+			this.aLi1[i].className = '';
+			this.aLi2[i].style.display = 'none';
+		}
+		
+		this.aLi2[btn].style.display = 'block';
+		this.aLi1[btn].className = 'active';
+	}
+}
+</script>
+</head>
+<body>
+<ul id="ul1">
+	<li class="active">城子河</li>
+	<li>鱼亮沟</li>
+	<li>鱼亮沟煤层</li>
+	<li>黄泥河子</li>
+	<li>探矿机械</li>
+	<li>1920年记载</li>
+	<li>1930年记载</li>
+</ul>
+
+<ul id="ul2">
+	<li style="display:block"><img src="1.jpg"></li>
+	<li><img src="2.jpg"></li>
+	<li><img src="3.jpg"></li>
+	<li><img src="4.jpg"></li>
+	<li><img src="5.jpg"></li>
+	<li><img src="6.jpg"></li>
+	<li><img src="7.jpg"></li>
+</ul>
+<script type="text/javascript">
+var oUls = document.getElementById('ul1');
+var aLis = oUls.getElementsByTagName('li');
+
+for(var i=0;i<aLis.length;i++){
+	aLis[i].style.width = (1000/7)+'px';
+}
+</script>
+</body>
+</html>
